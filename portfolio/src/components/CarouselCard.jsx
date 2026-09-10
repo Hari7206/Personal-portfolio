@@ -1,5 +1,6 @@
 import gsap from "@/libs/gsap"
 import TextReveal from "./TextReveal"
+import { useRef } from "react"
 
 const CARD_W = 200
 const CARD_H = 300
@@ -43,18 +44,19 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
     }
 
     return (
-        <div ref={cardRef}
-            OnMouseEnter={onEnter}
-            onMouseLeave={onLeave}
+      <div
+    ref={cardRef}
+    onMouseEnter={onEnter}
+    onMouseLeave={onLeave}
             style={{
                 width: CARD_W,
                 height: CARD_H,
                 perspective: 1000,
                 flexShrink: 0,
-                overflow: visible,
-                cursor: pointer,
+                overflow: "visible",
+                cursor: "pointer",
             }}
-            className="relative">
+            className="relative bg-red-300">
             {/* title panel */}
             <div style={{
                 bottom: 'calc(100% + 3rem)',
@@ -94,8 +96,7 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
                     ref={imgRef}
                     src={project.coverImage} alt={project.title} />
             </div>
-
-            CarouselCard</div>
+</div>
     )
 }
 
