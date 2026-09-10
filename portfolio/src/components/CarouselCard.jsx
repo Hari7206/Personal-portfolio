@@ -1,17 +1,51 @@
+import gsap from "@/libs/gsap"
 import TextReveal from "./TextReveal"
 
 const CARD_W = 200
 const CARD_H = 300
 const SCALE = 1.35
-const CarouselCard = ({ project }) => {
+const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
 
 
     const cardRef = useRef(null)
     const imgRef = useRef(null)
     const numberRef = useRef(null)
     const titleRef = useRef(null)
+
+    const onEnter = () => {
+        onHoverStart?.()
+
+        gsap.to(cardRef.current, {
+            width: CARD_W * SCALE,
+            height: CARD_H * SCALE,
+            duration: 0.45,
+            ease: 'power3.out'
+        })
+
+        numberRef.current?.play()
+        titleRef.current?.play()
+
+    }
+
+      const onLeave = () => {
+        onHoverEnd?.()
+
+        gsap.to(cardRef.current , {
+            width: CARD_W  ,
+            height: CARD_H ,
+            duration: 0.24,
+            ease: 'power3.out'
+        })
+
+        numberRef.current?.reverse()
+        titleRef.current?.reverse()
+        
+    }
+
     return (
         <div ref={cardRef}
+            OnMouseEnter={onEnter}
+            onMouseLeave={onLeave}
             style={{
                 width: CARD_W,
                 height: CARD_H,
@@ -51,8 +85,14 @@ const CarouselCard = ({ project }) => {
 
 
             <div className="imgDiv absolute h-full w-full overflow-hidden">
-                <img ref={imgRef}
-                src={project.coverImage} alt={project.title} />
+                <img
+                    style={{
+                        transformOrigin: 'center center',
+                        userSelect: 'none',
+                    }}
+                    className="h-full w-full object-cover "
+                    ref={imgRef}
+                    src={project.coverImage} alt={project.title} />
             </div>
 
             CarouselCard</div>
