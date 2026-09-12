@@ -2,8 +2,8 @@ import gsap from "@/libs/gsap"
 import TextReveal from "./TextReveal"
 import { useRef } from "react"
 
-const CARD_W = 200
-const CARD_H = 300
+const CARD_W = 300
+const CARD_H = 420
 const SCALE = 1.35
 const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
 
@@ -19,7 +19,14 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
         gsap.to(cardRef.current, {
             width: CARD_W * SCALE,
             height: CARD_H * SCALE,
-            duration: 0.45,
+            duration: 0.4,
+            ease: 'power3.out'
+        })
+
+
+        gsap.to(imgRef.current, {
+            scale: 1,
+            duration: 0.42,
             ease: 'power3.out'
         })
 
@@ -28,26 +35,33 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
 
     }
 
-      const onLeave = () => {
+    const onLeave = () => {
         onHoverEnd?.()
 
-        gsap.to(cardRef.current , {
-            width: CARD_W  ,
-            height: CARD_H ,
+        gsap.to(cardRef.current, {
+            width: CARD_W,
+            height: CARD_H,
             duration: 0.24,
+            ease: 'power3.out'
+        })
+
+
+        gsap.to(imgRef.current, {
+            scale: 1.6,
+            duration: 0.35,
             ease: 'power3.out'
         })
 
         numberRef.current?.reverse()
         titleRef.current?.reverse()
-        
+
     }
 
     return (
-      <div
-    ref={cardRef}
-    onMouseEnter={onEnter}
-    onMouseLeave={onLeave}
+        <div
+            ref={cardRef}
+            onMouseEnter={onEnter}
+            onMouseLeave={onLeave}
             style={{
                 width: CARD_W,
                 height: CARD_H,
@@ -59,27 +73,29 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
             className="relative bg-red-300">
             {/* title panel */}
             <div style={{
-                bottom: 'calc(100% + 3rem)',
+                bottom: 'calc(100% + 1.5rem)',
             }}
                 className="titlePanel absolute left-0 pointer-events-none flex flex-col 
-                gap-[1rem] "
+                gap-[0.8rem] "
             >
                 <TextReveal
                     ref={numberRef}
+                    duration={0.25}
                     trigger="manual"
                     splitBy="chars"
                 >
-                    <h3 className="text-[1rem] text=[#010101]">
+                    <h3 className="text-[1.2rem] text=[#010101]">
                         {project.number}
                     </h3>
                 </TextReveal>
                 <TextReveal
-                    ref={numberRef}
+                    ref={titleRef}
                     trigger="manual"
+                    duration={0.25}
                     splitBy="words"
                 >
-                    <h3 className="text-[1rem] text=[#010101]">
-                        {project.Title}
+                    <h3 className="text-[1.2rem] text=[#010101]">
+                        {project.title}
                     </h3>
                 </TextReveal>
             </div>
@@ -92,11 +108,11 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
                         transformOrigin: 'center center',
                         userSelect: 'none',
                     }}
-                    className="h-full w-full object-cover "
+                    className="h-full w-full object-cover scale-[1.6]"
                     ref={imgRef}
                     src={project.coverImage} alt={project.title} />
             </div>
-</div>
+        </div>
     )
 }
 

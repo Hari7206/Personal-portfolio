@@ -6,7 +6,7 @@ import { projects } from "@/data/projects";
 
 export default function Home() {
   return (
-   <main className="h-screen w-full flex items-center">
+   <main className="h-screen w-full items-start flex ">
       <InfiniteCarousel projects={projects}/>
     </main>
   );
