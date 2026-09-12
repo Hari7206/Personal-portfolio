@@ -1,6 +1,7 @@
 import gsap from "@/libs/gsap"
 import TextReveal from "./TextReveal"
 import { useRef } from "react"
+import useViewTransition from "@/hooks/useViewTransition"
 
 const CARD_W = 300
 const CARD_H = 420
@@ -57,9 +58,15 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
 
     }
 
+   const { navigateTo } = useViewTransition()
+
+const handleClick = () => {
+    navigateTo(`/project/${project.slug}`)
+}
     return (
         <div
             ref={cardRef}
+            onClick={handleClick}
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
             style={{
