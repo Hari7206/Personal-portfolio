@@ -10,7 +10,7 @@ const ProjectPage = ({ project }) => {
 
 
     useGSAP(() => {
-
+// using  gsap.utils.toArray to select all sections in the page and animate them on scroll using ScrollTrigger. Each section's first child (the container) will rotate back to 0 degrees as the user scrolls through the section. The image in the first section will also animate its clipPath and scale properties on page load.
         const sections  = gsap.utils.toArray('section');
 
         gsap.to(imageRef.current, {
