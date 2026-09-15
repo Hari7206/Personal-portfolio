@@ -1,17 +1,17 @@
 "use client"
 
+import useViewTransition from "@/hooks/useViewTransition"
 import TextReveal from "./TextReveal"
-import gsap, { useGSAP } from '@/libs/gsap'
+import gsap, { ScrollTrigger, useGSAP } from '@/libs/gsap'
 import { useRef } from "react"
 
-const ProjectPage = ({ project }) => {
+const ProjectPage = ({ project, nextProject }) => {
     const containerRef = useRef(null)
     const imageRef = useRef(null)
 
 
     useGSAP(() => {
-// using  gsap.utils.toArray to select all sections in the page and animate them on scroll using ScrollTrigger. Each section's first child (the container) will rotate back to 0 degrees as the user scrolls through the section. The image in the first section will also animate its clipPath and scale properties on page load.
-        const sections  = gsap.utils.toArray('section');
+        const sections = gsap.utils.toArray('section');
 
         gsap.to(imageRef.current, {
             clipPath: `inset(0 0 0% 0)`,
@@ -24,7 +24,7 @@ const ProjectPage = ({ project }) => {
 
 
 
-        sections.forEach((section , idx) => {
+        sections.forEach((section, idx) => {
             const container = section.children[0]
 
 
@@ -33,14 +33,30 @@ const ProjectPage = ({ project }) => {
                 scrollTrigger: {
                     trigger: section,
                     start: "top bottom",
-                    end: "bottom 20%",
+                    end: "bottom bottom",
                     scrub: true,
                 }
+            })
+
+               if (idx === sections.length - 1) return;
+
+            ScrollTrigger.create({
+                trigger: section,
+                start: "bottom bottom",
+                end: "bottom top",
+                pin: true,
+                pinSpacing: false,
+               
+            })
         })
-    })
     }, {
         scope: containerRef,
     })
+
+    const {navigateTo} = useViewTransition()
+    const handleClick = () => {
+        navigateTo(`/project/${nextProject.slug}`)
+    }
     return (
         <>
             <main ref={containerRef} >
@@ -113,7 +129,15 @@ const ProjectPage = ({ project }) => {
                     )
                 })}
 
-                <footer></footer>
+                <footer className="h-screen w-full flex items-center justify-center">
+                    <h1>
+                        Next Project
+                    </h1>
+                    <h1 onClick={handleClick}>
+                        {nextProject?.title || "Next Project"}
+                    </h1>
+
+                </footer>
             </main>
         </>
     )
