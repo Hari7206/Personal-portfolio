@@ -28,7 +28,7 @@ export default function useLenis() {
 
     gsap.ticker.add(update);
 
-    // Prevent GSAP from adding its own lag
+    // Prevent GSAP from adding its own lagx
     gsap.ticker.lagSmoothing(0);
 
     // Refresh ScrollTrigger after setup
