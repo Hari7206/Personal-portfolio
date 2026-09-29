@@ -1,68 +1,86 @@
+"use client"
+
 import gsap from "@/libs/gsap"
 import TextReveal from "./TextReveal"
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import useViewTransition from "@/hooks/useViewTransition"
 
 const CARD_W = 300
 const CARD_H = 420
 const SCALE = 1.35
+
 const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
-
-
     const cardRef = useRef(null)
     const imgRef = useRef(null)
     const numberRef = useRef(null)
     const titleRef = useRef(null)
 
+    const cardTweenRef = useRef(null)
+    const imgTweenRef = useRef(null)
+
+    useEffect(() => {
+        return () => {
+            cardTweenRef.current?.kill()
+            imgTweenRef.current?.kill()
+        }
+    }, [])
+
     const onEnter = () => {
         onHoverStart?.()
 
-        gsap.to(cardRef.current, {
+        cardTweenRef.current?.kill()
+        imgTweenRef.current?.kill()
+
+        cardTweenRef.current = gsap.to(cardRef.current, {
             width: CARD_W * SCALE,
             height: CARD_H * SCALE,
             duration: 0.4,
-            ease: 'power3.out'
+            ease: 'power3.out',
+            overwrite: 'auto',
         })
 
-
-        gsap.to(imgRef.current, {
+        imgTweenRef.current = gsap.to(imgRef.current, {
             scale: 1,
             duration: 0.42,
-            ease: 'power3.out'
+            ease: 'power3.out',
+            overwrite: 'auto',
         })
 
         numberRef.current?.play()
         titleRef.current?.play()
-
     }
 
     const onLeave = () => {
         onHoverEnd?.()
 
-        gsap.to(cardRef.current, {
+        cardTweenRef.current?.kill()
+        imgTweenRef.current?.kill()
+
+        cardTweenRef.current = gsap.to(cardRef.current, {
             width: CARD_W,
             height: CARD_H,
             duration: 0.24,
-            ease: 'power3.out'
+            ease: 'power3.out',
+            overwrite: 'auto',
         })
 
-
-        gsap.to(imgRef.current, {
+        imgTweenRef.current = gsap.to(imgRef.current, {
             scale: 1.6,
             duration: 0.35,
-            ease: 'power3.out'
+            ease: 'power3.out',
+            overwrite: 'auto',
         })
 
         numberRef.current?.reverse()
         titleRef.current?.reverse()
-
     }
 
-   const { navigateTo } = useViewTransition()
+    const { navigateTo } = useViewTransition()
 
-const handleClick = () => {
-    navigateTo(`/project/${project.slug}`)
-}
+    const handleClick = () => {
+        navigateTo(`/project/${project.slug}`)
+    }
+
     return (
         <div
             ref={cardRef}
@@ -77,47 +95,28 @@ const handleClick = () => {
                 overflow: "visible",
                 cursor: "pointer",
             }}
-            className="relative bg-red-300">
-            {/* title panel */}
-            <div style={{
-                bottom: 'calc(100% + 1.5rem)',
-            }}
-                className="titlePanel absolute left-0 pointer-events-none flex flex-col 
-                gap-[0.8rem] "
+            className="relative bg-red-300"
+        >
+            <div
+                style={{ bottom: 'calc(100% + 1.5rem)' }}
+                className="titlePanel absolute left-0 pointer-events-none flex flex-col gap-[0.8rem]"
             >
-                <TextReveal
-                    ref={numberRef}
-                    duration={0.25}
-                    trigger="manual"
-                    splitBy="chars"
-                >
-                    <h3 className="text-[1.2rem] text=[#010101]">
-                        {project.number}
-                    </h3>
+                <TextReveal ref={numberRef} duration={0.25} trigger="manual" splitBy="chars">
+                    <h3 className="text-[1.2rem] text-[#010101]">{project.number}</h3>
                 </TextReveal>
-                <TextReveal
-                    ref={titleRef}
-                    trigger="manual"
-                    duration={0.25}
-                    splitBy="words"
-                >
-                    <h3 className="text-[1.2rem] text=[#010101]">
-                        {project.title}
-                    </h3>
+                <TextReveal ref={titleRef} trigger="manual" duration={0.25} splitBy="words">
+                    <h3 className="text-[1.2rem] text-[#010101]">{project.title}</h3>
                 </TextReveal>
             </div>
 
-
-
             <div className="imgDiv absolute h-full w-full overflow-hidden">
                 <img
-                    style={{
-                        transformOrigin: 'center center',
-                        userSelect: 'none',
-                    }}
+                    style={{ transformOrigin: 'center center', userSelect: 'none' }}
                     className="h-full w-full object-cover scale-[1.6]"
                     ref={imgRef}
-                    src={project.coverImage} alt={project.title} />
+                    src={project.coverImage}
+                    alt={project.title}
+                />
             </div>
         </div>
     )
