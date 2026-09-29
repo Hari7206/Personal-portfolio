@@ -7,7 +7,7 @@ import HeroPortrait from "./HeroPortrait";
 
 const Hero = () => {
     return (
-        <section className="relative w-full h-screen bg-white overflow-hidden">
+    <section className="relative w-full h-screen bg-white overflow-hidden rounded-b-[3rem]">
 
             {/* ─── NAME — spans full width, sits at top ─────────────── */}
             <div className="pt-[10vh] px-4">
@@ -42,8 +42,8 @@ const Hero = () => {
                     <HeroSocials />
                 </div>
             </div>
-
-        </section>
+<div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/[0.05]" />
+</section>
     );
 };
 

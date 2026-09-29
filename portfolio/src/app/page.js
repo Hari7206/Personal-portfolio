@@ -4,7 +4,7 @@ import { projects } from "@/data/projects";
 
 export default function Home() {
     return (
-        <main className="w-full">
+      <main className="w-full bg-neutral-100">
             <Hero />
             <InfiniteCarousel projects={projects} />
         </main>
