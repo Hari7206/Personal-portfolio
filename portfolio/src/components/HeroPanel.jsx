@@ -2,26 +2,25 @@
 
 import gsap, { useGSAP } from "@/libs/gsap";
 import { useRef } from "react";
+import LetterSwapText from "./LetterSwapText";
 
 const HeroPanel = ({ className = "" }) => {
     const panelRef = useRef(null);
 
     useGSAP(
         () => {
-           
             gsap.set(".hero-panel-item", {
                 y: 60,
                 opacity: 0,
             });
 
-            // 2. Fade + slide them all up
             gsap.to(".hero-panel-item", {
                 y: 0,
                 opacity: 1,
                 duration: 0.9,
-                delay: 1.0,     // waits for the name to land first
+                delay: 1.0,
                 ease: "power3.out",
-                stagger: 0.12,  // each item 0.12s after the previous
+                stagger: 0.12,
             });
         },
         { scope: panelRef }
@@ -42,8 +41,13 @@ const HeroPanel = ({ className = "" }) => {
                 href="mailto:harithapa4654@gmail.com"
                 className="hero-panel-item mt-6 inline-flex items-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm text-white hover:bg-neutral-800 transition-colors"
             >
-                Let&apos;s collaborate
-                <span aria-hidden="true">↗</span>
+                <LetterSwapText
+                    text="Let's collaborate"
+                    revealDelay={1.6}
+                    revealDuration={0.6}
+                    revealStagger={0.06}
+                />
+                <span aria-hidden="true" className="shrink-0">↗</span>
             </a>
         </div>
     );

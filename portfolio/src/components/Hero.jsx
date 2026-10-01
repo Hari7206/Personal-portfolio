@@ -1,15 +1,30 @@
 "use client";
 
+import { ScrollTrigger, useGSAP } from "@/libs/gsap";
+import { useRef } from "react";
 import HeroName from "./HeroName";
 import HeroPanel from "./HeroPanel";
 import HeroSocials from "./HeroSocials";
 import HeroPortrait from "./HeroPortrait";
 
 const Hero = () => {
-    return (
-    <section className="relative w-full h-screen bg-white overflow-hidden rounded-b-[3rem]">
+    const heroRef = useRef(null);
 
-            {/* ─── NAME — spans full width, sits at top ─────────────── */}
+    useGSAP(() => {
+        ScrollTrigger.create({
+            trigger: heroRef.current,
+            start: "bottom bottom",
+            end: "bottom top",
+            pin: true,
+            pinSpacing: false,
+        });
+    }, { scope: heroRef });
+
+    return (
+        <section
+            ref={heroRef}
+            className="relative w-full h-screen bg-white overflow-hidden rounded-b-[3rem]"
+        >
             <div className="pt-[10vh] px-4">
                 <HeroName className="text-center text-[15vw] font-black leading-[0.9] tracking-tight">
                     <span className="text-black">HARI</span>{" "}
@@ -19,18 +34,16 @@ const Hero = () => {
                 </HeroName>
             </div>
 
-            {/* ─── PORTRAIT — big, centered, overlapping the name ──── */}
-        <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
+            <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
                 <div className="pointer-events-auto">
                     <HeroPortrait
                         src="https://res.cloudinary.com/dczypoejb/image/upload/v1790693877/profile_zd1ubt.png"
                         alt="Hari Thapa"
-                       className="h-[80vh] w-auto"
+                        className="h-[80vh] w-auto"
                     />
                 </div>
             </div>
 
-            {/* ─── SIDE CONTENT — anchored to bottom, tucked to edges ─ */}
             <div className="absolute inset-x-0 bottom-0 grid grid-cols-12 items-end px-6 md:px-12 pb-10">
                 <div className="col-span-12 md:col-span-3 flex justify-center md:justify-start">
                     <HeroPanel />
@@ -42,8 +55,9 @@ const Hero = () => {
                     <HeroSocials />
                 </div>
             </div>
-<div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/[0.05]" />
-</section>
+
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/[0.05]" />
+        </section>
     );
 };
 

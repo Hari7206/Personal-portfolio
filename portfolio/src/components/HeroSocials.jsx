@@ -2,6 +2,7 @@
 
 import gsap, { useGSAP } from "@/libs/gsap";
 import { useRef } from "react";
+import LetterSwapText from "./LetterSwapText";
 
 const socials = [
     { label: "GitHub", href: "https://github.com/Hari7206" },
@@ -12,6 +13,7 @@ const socials = [
 
 const HeroSocials = ({ className = "" }) => {
     const socialsRef = useRef(null);
+    const swapRefs = useRef([]);
 
     useGSAP(
         () => {
@@ -39,15 +41,21 @@ const HeroSocials = ({ className = "" }) => {
 
     return (
         <div ref={socialsRef} className={`flex flex-col gap-3 ${className}`}>
-            {socials.map((s) => (
+            {socials.map((s, i) => (
                 <a
                     key={s.label}
                     href={s.href}
                     target={s.href.startsWith("http") ? "_blank" : undefined}
                     rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                   className="hero-social-item inline-flex items-center justify-center rounded-full border border-neutral-300 px-7 py-3 text-sm text-neutral-700 hover:bg-black hover:text-white hover:border-black transition-colors"
+                    onMouseEnter={() => swapRefs.current[i]?.swap()}
+                    onMouseLeave={() => swapRefs.current[i]?.unswap()}
+                    className="hero-social-item inline-flex items-center justify-center rounded-full border border-neutral-300 px-7 py-3 text-sm text-neutral-700 hover:bg-black hover:text-white hover:border-black transition-colors"
                 >
-                    {s.label}
+                    <LetterSwapText
+                        ref={(el) => (swapRefs.current[i] = el)}
+                        text={s.label}
+                        disableReveal
+                    />
                 </a>
             ))}
         </div>

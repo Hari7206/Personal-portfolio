@@ -1,23 +1,41 @@
-import TextReveal from "./TextReveal"
+"use client"
+
+import LetterSwapText from "./LetterSwapText"
 
 const Navbar = () => {
   return (
-    <div className="fixed z-[30] px-[3rem] top-0 left-0 h-[6vh] w-full flex items-center justify-between ">
-        <div className="leftNameSide ">
-            <TextReveal>
-                <h3 className="text-[1.2rem] text=[#010101]">Hari Thapa</h3>
-            </TextReveal>
+    <div className="fixed z-[30] px-[3rem] top-0 left-0 h-[6vh] w-full flex items-center justify-between">
+        <div className="leftNameSide">
+            <LetterSwapText
+                text="Hari Thapa"
+                className="text-[1.2rem] text-black"
+                revealDelay={0.2}
+                revealDuration={0.9}
+                revealStagger={0.2}
+            />
         </div>
         <div className="rightLinkSide flex gap-[1.6rem]">
-              <TextReveal>
-                <h3 className="text-[1.1rem] text=[#010101]">Home</h3>
-            </TextReveal>
-              <TextReveal>
-                <h3 className="text-[1.1rem] text=[#010101]">About</h3>
-            </TextReveal>
-              <TextReveal>
-                <h3 className="text-[1.1rem] text=[#010101]">Contact</h3>
-            </TextReveal>
+            <LetterSwapText
+                text="Home"
+                className="text-[1.1rem] text-black"
+                revealDelay={0.5}
+                revealDuration={0.7}
+                revealStagger={0.1}
+            />
+            <LetterSwapText
+                text="About"
+                className="text-[1.1rem] text-black"
+                revealDelay={0.6}
+                revealDuration={0.7}
+                revealStagger={0.1}
+            />
+            <LetterSwapText
+                text="Contact"
+                className="text-[1.1rem] text-black"
+                revealDelay={0.7}
+                revealDuration={0.7}
+                revealStagger={0.1}
+            />
         </div>
     </div>
   )
