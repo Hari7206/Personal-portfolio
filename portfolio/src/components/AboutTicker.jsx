@@ -15,7 +15,7 @@ const items = [
   "Node.js",
   "Express.js",
   "MongoDB",
-  "MySQL (Basics)",
+  "MySQL ",
   "Redis",
   "Git",
   "GitHub",
