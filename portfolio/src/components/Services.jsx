@@ -70,6 +70,7 @@ const Services = () => {
             ref={containerRef}
             className="relative w-full bg-neutral-100 py-32 px-6 md:px-12"
         >
+            {/* ─── Heading with scrubbed reveal ──────────────── */}
             <div className="relative w-full mb-16 select-none">
                 <TextRevealScrub
                     scrollStart="top 95%"
@@ -97,8 +98,10 @@ const Services = () => {
                 </div>
             </div>
 
+            {/* ─── Two columns ─────────────────────────────────── */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-stretch">
 
+                {/* LEFT — service list (static text, no scrub) */}
                 <div className="md:col-span-6 relative">
                     <div
                         ref={barRef}
@@ -114,31 +117,17 @@ const Services = () => {
                                 ${i === 0 ? "border-t border-neutral-200" : ""}
                                 ${activeIndex === i ? "text-black" : "text-neutral-300"}`}
                         >
-                            <TextRevealScrub
-                                scrollStart="top 95%"
-                                scrollEnd="top 55%"
-                                splitBy="chars"
-                                duration={0.5}
-                                stagger={0.02}
-                                className="block text-sm text-neutral-400 mb-2"
-                            >
-                                {`(${service.number})`}
-                            </TextRevealScrub>
-
-                            <TextRevealScrub
-                                scrollStart="top 95%"
-                                scrollEnd="top 55%"
-                                splitBy="words"
-                                duration={0.7}
-                                stagger={0.1}
-                                className="text-4xl md:text-6xl font-medium tracking-tight"
-                            >
+                            <span className="block text-sm text-neutral-400 mb-2">
+                                ({service.number})
+                            </span>
+                            <h3 className="text-3xl md:text-5xl font-medium tracking-tight whitespace-nowrap">
                                 {service.title}
-                            </TextRevealScrub>
+                            </h3>
                         </div>
                     ))}
                 </div>
 
+                {/* RIGHT — filmstrip window */}
                 <div className="md:col-span-6 h-full">
                     <div
                         ref={windowRef}
