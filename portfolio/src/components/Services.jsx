@@ -3,6 +3,7 @@
 import gsap, { useGSAP } from "@/libs/gsap"
 import { useRef, useState } from "react"
 import { services } from "@/data/services"
+import TextRevealScrub from "./TextRevealScrub"
 
 const Services = () => {
     const containerRef = useRef(null)
@@ -14,7 +15,6 @@ const Services = () => {
     const [activeIndex, setActiveIndex] = useState(0)
 
     useGSAP(() => {
-        // ── Position the black bar next to the first row ──
         const firstRow = rowRefs.current[0]
         if (firstRow && barRef.current) {
             gsap.set(barRef.current, {
@@ -23,15 +23,11 @@ const Services = () => {
             })
         }
 
-        // ── Measure the window height and size each image ──
         const windowH = windowRef.current.offsetHeight
-
-        // Set each image's height to match the window
         Array.from(stripRef.current.children).forEach((img) => {
             img.style.height = `${windowH}px`
         })
 
-        // ── On resize, re-measure and re-align the strip ──
         const handleResize = () => {
             const newH = windowRef.current.offsetHeight
             Array.from(stripRef.current.children).forEach((img) => {
@@ -52,7 +48,6 @@ const Services = () => {
 
         setActiveIndex(index)
 
-        // ── Bar slides to new row ──
         gsap.to(barRef.current, {
             y: targetRow.offsetTop,
             height: targetRow.offsetHeight,
@@ -60,7 +55,6 @@ const Services = () => {
             ease: "power3.out",
         })
 
-        // ── Filmstrip slides to the target image ──
         const windowH = windowRef.current.offsetHeight
         gsap.to(stripRef.current, {
             y: -index * windowH,
@@ -76,21 +70,35 @@ const Services = () => {
             ref={containerRef}
             className="relative w-full bg-neutral-100 py-32 px-6 md:px-12"
         >
-            {/* ─── Ghost heading ───────────────────────────────── */}
             <div className="relative w-full mb-16 select-none">
-                <h2 className="text-center text-[8vw] font-black leading-none tracking-tight text-neutral-200/70 pointer-events-none">
+                <TextRevealScrub
+                    scrollStart="top 95%"
+                    scrollEnd="top 50%"
+                    splitBy="chars"
+                    duration={0.6}
+                    stagger={0.03}
+                    className="text-center text-[8vw] font-black leading-none tracking-tight text-neutral-200/70 pointer-events-none"
+                >
                     HOW I CAN HELP YOU
-                </h2>
+                </TextRevealScrub>
 
-                <span className="absolute inset-x-0 top-[-10%] text-right text-4xl md:text-3xl tracking-widest text-neutral-500 right-[7%]">
-                    (SERVICES)
-                </span>
+                <div className="absolute inset-x-0 top-[-10%] right-[7%] flex justify-end pointer-events-none">
+                    <TextRevealScrub
+                        scrollStart="top 95%"
+                        scrollEnd="top 50%"
+                        splitBy="chars"
+                        duration={0.5}
+                        stagger={0.05}
+                        delay={0.2}
+                        className="text-right text-4xl md:text-3xl tracking-widest text-neutral-500"
+                    >
+                        (SERVICES)
+                    </TextRevealScrub>
+                </div>
             </div>
 
-            {/* ─── Two columns ─────────────────────────────────── */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-stretch">
 
-                {/* LEFT — service list */}
                 <div className="md:col-span-6 relative">
                     <div
                         ref={barRef}
@@ -103,22 +111,34 @@ const Services = () => {
                             ref={(el) => (rowRefs.current[i] = el)}
                             onMouseEnter={() => handleHover(i)}
                             className={`relative cursor-pointer pl-8 pr-4 py-8 border-b border-neutral-200 transition-colors duration-300
-                                ${i === 0 ? "border-t border-neutral-200" : ""}`}
+                                ${i === 0 ? "border-t border-neutral-200" : ""}
+                                ${activeIndex === i ? "text-black" : "text-neutral-300"}`}
                         >
-                            <span className="block text-sm text-neutral-400 mb-2">
-                                ({service.number})
-                            </span>
-                            <h3
-                                className={`text-4xl md:text-6xl font-medium tracking-tight transition-colors duration-300
-                                    ${activeIndex === i ? "text-black" : "text-neutral-300"}`}
+                            <TextRevealScrub
+                                scrollStart="top 95%"
+                                scrollEnd="top 55%"
+                                splitBy="chars"
+                                duration={0.5}
+                                stagger={0.02}
+                                className="block text-sm text-neutral-400 mb-2"
+                            >
+                                {`(${service.number})`}
+                            </TextRevealScrub>
+
+                            <TextRevealScrub
+                                scrollStart="top 95%"
+                                scrollEnd="top 55%"
+                                splitBy="words"
+                                duration={0.7}
+                                stagger={0.1}
+                                className="text-4xl md:text-6xl font-medium tracking-tight"
                             >
                                 {service.title}
-                            </h3>
+                            </TextRevealScrub>
                         </div>
                     ))}
                 </div>
 
-                {/* RIGHT — filmstrip window, matches rows' height */}
                 <div className="md:col-span-6 h-full">
                     <div
                         ref={windowRef}
