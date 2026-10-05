@@ -2,16 +2,16 @@ export const services = [
     {
         number: "01",
         title: "Frontend Development",
-        image: "https://i.pinimg.com/736x/6b/c5/98/6bc5985439df332a6857b552a3d72135.jpg",
+        image: "https://i.pinimg.com/1200x/45/82/d7/4582d72a1967f304837a67f8c4946680.jpg",
     },
     {
         number: "02",
         title: "MERN Stack Development",
-        image: "https://i.pinimg.com/1200x/6c/66/a2/6c66a263ae747877da72a5ee2be14956.jpg",
+        image: "https://i.pinimg.com/1200x/44/8d/30/448d30a88a8f749fa92c0d3ede35cee0.jpg",
     },
     {
         number: "03",
         title: "API & Backend Development",
-        image: "https://i.pinimg.com/1200x/af/0a/bb/af0abbe07f354fc5631c9ea1d6a9f33c.jpg",
+        image: "https://i.pinimg.com/1200x/fe/36/41/fe3641a652a251916aca46640d45371e.jpg",
     },
 ];

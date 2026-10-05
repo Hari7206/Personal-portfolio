@@ -7,6 +7,7 @@ const About = () => {
     return (
         <section
             data-about
+             id="about"
             className="relative z-20 w-full h-screen bg-black text-white rounded-t-[3rem] overflow-hidden flex flex-col"
         >
             <div className="flex-1 flex flex-col px-8 md:px-16 pt-12 md:pt-16 pb-10 min-h-0">

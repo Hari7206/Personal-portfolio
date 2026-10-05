@@ -1,4 +1,3 @@
-
 "use client";
 import { useEffect } from "react";
 import Lenis from "lenis";
@@ -18,6 +17,9 @@ export default function useLenis() {
       infinite: false,
     });
 
+    // ── Expose globally so any component can control the scroll ──
+    window.__lenis = lenis;
+
     // Keep ScrollTrigger synchronized with Lenis
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -28,7 +30,7 @@ export default function useLenis() {
 
     gsap.ticker.add(update);
 
-    // Prevent GSAP from adding its own lagx
+    // Prevent GSAP from adding its own lag
     gsap.ticker.lagSmoothing(0);
 
     // Refresh ScrollTrigger after setup
@@ -39,7 +41,7 @@ export default function useLenis() {
       gsap.ticker.remove(update);
       lenis.off("scroll", ScrollTrigger.update);
       lenis.destroy();
+      window.__lenis = null;
     };
   }, []);
 }
-
