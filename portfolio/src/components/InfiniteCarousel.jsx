@@ -2,7 +2,7 @@
 
 import gsap from "@/libs/gsap"
 import CarouselCard from "./CarouselCard"
-import TextReveal from "./TextReveal"
+import TextRevealScrub from "./TextRevealScrub"
 import { useEffect, useRef } from "react"
 
 const CARD_W = 300
@@ -37,24 +37,23 @@ const InfiniteCarousel = ({ projects }) => {
 
     return (
         <section className="relative w-full pt-5 bg-neutral-100">
-            {/* ─── Heading — now scroll-triggered ─────────────────── */}
             <div className="relative w-full select-none h-[14vw] overflow-hidden">
-                {/* PORTFOLIO — big, ghosted, drops in on scroll */}
-                <TextReveal
-                    trigger="scroll"
-                    scrollStart="top 60%"
+                {/* PORTFOLIO — scrubbed reveal */}
+                <TextRevealScrub
+                    scrollStart="top 90%"
+                    scrollEnd="top 40%"
                     splitBy="chars"
                     duration={0.8}
                     stagger={0.04}
                     className="absolute inset-x-0 top-0 text-center text-[16vw] font-black leading-none tracking-tight text-neutral-200/70 pointer-events-none"
                 >
                     PORTFOLIO
-                </TextReveal>
+                </TextRevealScrub>
 
-                {/* SELECTED WORK — small, dark, arrives after */}
-                <TextReveal
-                    trigger="scroll"
-                    scrollStart="top 60%"
+                {/* SELECTED WORK — scrubbed reveal */}
+                <TextRevealScrub
+                    scrollStart="top 90%"
+                    scrollEnd="top 40%"
                     splitBy="words"
                     duration={0.7}
                     stagger={0.12}
@@ -62,14 +61,11 @@ const InfiniteCarousel = ({ projects }) => {
                     className="absolute inset-x-0 bottom-[0%] z-10 text-center text-4xl md:text-6xl font-medium tracking-tight text-black"
                 >
                     SELECTED WORK
-                </TextReveal>
+                </TextRevealScrub>
             </div>
 
-            {/* ─── Carousel track ─────────────────────────────────── */}
             <div
-                style={{
-                    padding: `${TRACK_H * 0.2}px 0 24px`,
-                }}
+                style={{ padding: `${TRACK_H * 0.2}px 0 24px` }}
                 className="overflow-hidden"
             >
                 <div
