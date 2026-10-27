@@ -2,34 +2,42 @@
 
 import AboutTicker from "./AboutTicker"
 import ScrollHighlightText from "./ScrollHighlightText"
+import FlowLines from "./Flowline"
+import TechGrid from "./TechGrid"
 
 const About = () => {
     return (
         <section
             data-about
-             id="about"
-            className="relative z-20 w-full h-screen bg-black text-white rounded-t-[3rem] overflow-hidden flex flex-col"
+            id="about"
+            className="relative z-20 w-full min-h-screen bg-black text-white rounded-t-[3rem] overflow-hidden flex flex-col"
         >
-            <div className="flex-1 flex flex-col px-8 md:px-16 pt-12 md:pt-16 pb-10 min-h-0">
+            <FlowLines />
 
-                <div className="flex justify-end mb-8">
+            <div className="relative z-10 flex-1 flex flex-col px-8 md:px-16 pt-12 md:pt-16 pb-10">
+                
+                {/* Top row: Counter */}
+                <div className="flex justify-end mb-4">
                     <span className="text-xs md:text-sm tracking-widest text-neutral-500">
                         02 / 05
                     </span>
                 </div>
 
-                <div className="overflow-hidden mb-6 md:mb-10">
-                    <h2 className="text-[26vw] md:text-[18vw] font-black leading-[0.8] tracking-tight">
+                {/* Big /ABOUT Heading */}
+                <div className="overflow-hidden mb-8">
+                    <h2 className="text-[22vw] md:text-[15vw] font-black leading-[0.8] tracking-tight">
                         /ABOUT
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start md:items-end flex-1">
-
+                {/* Main Content Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center flex-1">
+                    
+                    {/* Arrow */}
                     <div className="md:col-span-2 flex justify-start">
                         <svg
                             viewBox="0 0 120 120"
-                            className="w-40 h-40 md:w-56 md:h-56 text-neutral-700"
+                            className="w-24 h-24 md:w-40 md:h-40 text-neutral-700"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="10"
@@ -40,22 +48,29 @@ const About = () => {
                         </svg>
                     </div>
 
-                    <div className="md:col-span-7 flex flex-col gap-6">
+                    {/* Bio Text */}
+                    <div className="md:col-span-5 flex flex-col gap-6">
                         <ScrollHighlightText
-                            text='"I am a Full Stack Developer focused on building scalable MERN applications with real-time features, AI integrations, and clean, user-focused interfaces. With a foundation in Data Structures, REST APIs, and secure authentication  committed to shipping impactful solutions in fast-paced development environments."'
-                            className="text-2xl md:text-4xl font-bold leading-[1.3] tracking-tight"
+                            text='"I am a Full Stack Developer focused on building scalable MERN applications with real-time features, AI integrations, and clean, user-focused interfaces. With a foundation in Data Structures, REST APIs, and secure authentication committed to shipping impactful solutions in fast-paced development environments."'
+                            className="text-xl md:text-3xl font-bold leading-[1.4] tracking-tight"
                         />
-
                         <span className="text-xs tracking-widest text-neutral-500 uppercase">
                             Currently building with MERN + AI
                         </span>
+                    </div>
+
+                    {/* Tech Grid (Takes up the remaining 5 columns) */}
+                    <div className="md:col-span-5 h-full relative min-h-[300px]">
+                        <TechGrid />
                     </div>
 
                 </div>
 
             </div>
 
-            <AboutTicker />
+            <div className="relative z-10">
+                <AboutTicker />
+            </div>
         </section>
     )
 }
