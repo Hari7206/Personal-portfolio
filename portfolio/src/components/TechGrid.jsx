@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import gsap from "@/libs/gsap"
 import { 
     SiHtml5, 
@@ -19,8 +19,6 @@ import {
     SiRender,
     SiGit 
 } from "react-icons/si"
-
-// We import FaCloud as a placeholder for AWS
 import { FaCloud } from "react-icons/fa"
 
 const techs = [
@@ -34,7 +32,7 @@ const techs = [
     { name: "TypeScript", icon: SiTypescript, rotation: 15, top: "5%", left: "85%" },
     { name: "Next.js", icon: SiNextdotjs, rotation: -20, top: "35%", left: "90%" },
     { name: "Socket.io", icon: SiSocketdotio, rotation: 5, top: "65%", left: "80%" },
-    { name: "AWS", icon: FaCloud, rotation: -15, top: "75%", left: "15%" }, // AWS Placeholder
+    { name: "AWS", icon: FaCloud, rotation: -15, top: "75%", left: "15%" },
     { name: "Vercel", icon: SiVercel, rotation: 12, top: "80%", left: "55%" },
     { name: "Render", icon: SiRender, rotation: -8, top: "60%", left: "95%" },
     { name: "LeetCode", icon: SiLeetcode, rotation: 18, top: "85%", left: "85%" },
@@ -45,10 +43,19 @@ const techs = [
 const TechBox = ({ tech }) => {
     const boxRef = useRef(null)
 
+    // Hide on initial load
+    useEffect(() => {
+        gsap.set(boxRef.current, { opacity: 0, scale: 0.8 })
+    }, [])
+
     const handleEnter = () => {
         gsap.to(boxRef.current, {
             opacity: 1,
             scale: 1,
+            borderColor: "#A3E635", // Bright lime green border
+            color: "#A3E635",       // Bright lime green icon
+            backgroundColor: "rgba(21, 55, 13, 0.4)", // Very dark green fill
+            boxShadow: "0 0 20px rgba(163, 230, 53, 0.15)", // Subtle green glow
             duration: 0.4,
             ease: "back.out(2)",
             overwrite: true,
@@ -70,15 +77,16 @@ const TechBox = ({ tech }) => {
             ref={boxRef}
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
-            className="absolute flex items-center justify-center w-12 h-12 md:w-16 md:h-16 border-2 border-neutral-700 bg-neutral-900/80 rounded-xl backdrop-blur-sm cursor-pointer opacity-0 scale-90"
+            // Default state: very dark border, dark background
+            className="absolute flex items-center justify-center w-12 h-12 md:w-16 md:h-16 border border-neutral-800 bg-neutral-950/80 rounded-md cursor-pointer"
             style={{
                 top: tech.top,
                 left: tech.left,
                 transform: `rotate(${tech.rotation}deg)`,
             }}
         >
-            <div className="flex items-center justify-center">
-                <tech.icon size={24} className="text-white md:w-8 md:h-8" />
+            <div className="flex items-center justify-center text-neutral-500">
+                <tech.icon size={24} className="md:w-8 md:h-8" />
             </div>
         </div>
     )
