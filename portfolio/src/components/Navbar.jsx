@@ -1,10 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname, useRouter } from "next/navigation"
 import LetterSwapText from "./LetterSwapText"
 
 const Navbar = () => {
     const [isDark, setIsDark] = useState(false)
+    const pathname = usePathname()
+    const router = useRouter()
 
     useEffect(() => {
         const check = () => {
@@ -30,6 +33,11 @@ const Navbar = () => {
     const textColor = isDark ? "text-white" : "text-black"
 
     const scrollToTop = () => {
+        if (pathname !== "/") {
+            router.push("/")
+            return
+        }
+
         if (window.__lenis) {
             window.__lenis.scrollTo(0, { duration: 1.4 })
         } else {

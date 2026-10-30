@@ -5,13 +5,14 @@ import gsap, { ScrollTrigger } from "@/libs/gsap"
 
 const ACCENT = "#A3E635"
 
+// Updated text to read like your personal work process
 const STAGES = [
-    { title: "Idea", text: "Everything starts as loose parts: a problem, a sketch, a requirement worth solving." },
-    { title: "Architecture", text: "MongoDB, Express and Node snap into a structure that can carry real traffic." },
-    { title: "Design", text: "Screens, components and API contracts get drafted before a single feature ships." },
-    { title: "Code", text: "React, JavaScript and REST APIs turn the blueprint into working software." },
-    { title: "Style", text: "Tailwind and motion give the product a look people remember." },
-    { title: "Ship", text: "Secure auth, real-time features and deployment. The lights go on." },
+    { title: "Idea", text: "Every project starts with a blank canvas: a problem to solve, a sketch on paper, or a requirement I need to bring to life." },
+    { title: "Architecture", text: "Before writing code, I map out the database and the API. I ensure the foundation is strong enough to handle real traffic." },
+    { title: "Design", text: "I draft the user interface and component structure. I care about how it looks, but more about how it flows." },
+    { title: "Code", text: "This is where I spend most of my time. Writing clean React components and connecting them to the backend." },
+    { title: "Style", text: "I add the final touches. Tailwind CSS and smooth animations make the application feel alive and premium." },
+    { title: "Ship", text: "Deploying is the best part. Seeing the lights turn on and the application live on the internet." },
 ]
 
 const SCATTER = {
@@ -193,7 +194,18 @@ const LampStory = () => {
             ref={rootRef}
             className="relative z-10 h-screen w-full overflow-hidden bg-[#0a0a0a] text-white px-8 md:px-16 py-10 flex flex-col md:flex-row items-center gap-6 md:gap-12"
         >
-            <div className="w-full md:w-5/12 flex flex-col gap-5">
+            {/* Added the dark green radial glow to match the About section */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#15370D]/30 via-[#0a0a0a] to-[#0a0a0a] pointer-events-none -z-10" />
+
+            <div className="relative z-10 w-full md:w-5/12 flex flex-col gap-5">
+                
+                {/* NEW MAIN HEADING */}
+                <div className="mb-4">
+                    <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">
+                        HOW I <span className="text-[#A3E635]">WORK</span>
+                    </h2>
+                </div>
+
                 <div className="flex items-center gap-1.5">
                     {STAGES.map((_, i) => (
                         <span
@@ -218,7 +230,7 @@ const LampStory = () => {
                 </div>
             </div>
 
-            <div className="relative w-full md:w-7/12 flex-1 min-h-0 flex items-center justify-center">
+            <div className="relative z-10 w-full md:w-7/12 flex-1 min-h-0 flex items-center justify-center">
                 <svg
                     data-scene
                     viewBox="0 0 600 600"
