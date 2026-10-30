@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import LampStory from "@/components/LampStory"
 import Services from "@/components/Services";
 import InfiniteCarousel from "@/components/InfiniteCarousel";
 import Footer from "@/components/Footer";
@@ -11,6 +12,7 @@ export default function Home() {
         <main className="w-full bg-neutral-100">
             <Hero />
             <About />
+            <LampStory />
             <Services />
             <InfiniteCarousel projects={projects} />
             <Footer />
