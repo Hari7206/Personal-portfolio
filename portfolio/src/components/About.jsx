@@ -3,7 +3,17 @@
 import AboutTicker from "./AboutTicker"
 import ScrollHighlightText from "./ScrollHighlightText"
 import FlowLines from "./Flowline"
-import TechGrid from "./TechGrid"
+import DeveloperGame from "./DeveloperGame"
+
+const INTRO =
+    "I'm a Full Stack Developer who builds complete web applications with JavaScript and the MERN stack. I work across frontend and backend, from responsive interfaces to REST APIs, authentication systems, and database-driven apps. I enjoy solving problems, exploring AI integrations, and turning ideas into working products, and I keep sharpening my skills through real-world projects and DSA."
+
+const IDENTITY = [
+    { label: "PRIMARY STACK", value: "MERN" },
+    { label: "FOCUS", value: "Full Stack Development" },
+    { label: "EXPLORING", value: "AI + Real-time Applications" },
+    { label: "MINDSET", value: "Build. Solve. Improve." },
+]
 
 const About = () => {
     return (
@@ -20,7 +30,7 @@ const About = () => {
                     <span className="text-xs md:text-sm tracking-widest text-neutral-500">02 / 05</span>
                 </div>
 
-                {/* Heading with selection border */}
+                {/* Heading with selection border — UNCHANGED */}
                 <div className="relative w-full mb-12 md:mb-16 group">
                     <div className="absolute inset-0 border border-dashed border-neutral-700/60 pointer-events-none -m-4 md:-m-8 z-0" />
                     <div className="absolute -top-[21px] -left-[21px] md:-top-[37px] md:-left-[37px] w-2.5 h-2.5 bg-[#A3E635] z-10" />
@@ -41,41 +51,41 @@ const About = () => {
                     </div>
                 </div>
 
-                {/* Main content Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center flex-1">
-                    
-                    {/* Arrow (2 cols) */}
-                    <div className="md:col-span-2 flex justify-start">
-                        <svg
-                            viewBox="0 0 120 120"
-                            className="w-24 h-24 md:w-40 md:h-40 text-[#15370D] transition-colors duration-500 hover:text-[#A3E635]"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="10"
-                            strokeLinecap="square"
-                        >
-                            <line x1="20" y1="100" x2="100" y2="20" />
-                            <polyline points="50,20 100,20 100,70" />
-                        </svg>
-                    </div>
+                {/* Main content */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 lg:gap-14 items-center flex-1">
 
-                    {/* Bio Text (WIDENED to 6 columns instead of 5) */}
-                    <div className="md:col-span-6 flex flex-col gap-6">
+                    {/* LEFT — introduction + identity */}
+                    <div className="md:col-span-6 min-w-0 flex flex-col gap-6">
+                        
+
                         <ScrollHighlightText
-                            text='"I am a Full Stack Developer focused on building scalable MERN applications with real-time features, AI integrations, and clean, user-focused interfaces. With a foundation in Data Structures, REST APIs, and secure authentication committed to shipping impactful solutions in fast-paced development environments."'
-                            className="text-xl md:text-3xl font-bold leading-[1.4] tracking-tight"
+                            text={INTRO}
+                            className="text-lg md:text-xl lg:text-2xl xl:text-[1.7rem] font-bold leading-[1.45] tracking-tight"
                         />
-                        <div className="flex items-center gap-2 mt-4">
+
+                        <div className="flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#A3E635]" />
                             <span className="text-[10px] md:text-xs tracking-[0.2em] text-neutral-400 uppercase font-semibold">
                                 Currently building with MERN + AI
                             </span>
                         </div>
+
+                        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-neutral-800/70 border border-neutral-800/70">
+                            {IDENTITY.map(({ label, value }) => (
+                                <div key={label} className="bg-[#0a0a0a]/90 px-4 py-3">
+                                    <dt className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-neutral-500">
+                                        <span className="w-1 h-1 bg-[#A3E635]" />
+                                        {label}
+                                    </dt>
+                                    <dd className="mt-1 text-sm md:text-[15px] font-semibold text-neutral-100">{value}</dd>
+                                </div>
+                            ))}
+                        </dl>
                     </div>
 
-                    {/* Tech Grid (4 cols) */}
-                    <div className="md:col-span-4 h-full relative min-h-[300px]">
-                        <TechGrid />
+                    {/* RIGHT — interactive platformer */}
+                    <div className="md:col-span-6 min-w-0 w-full max-w-[600px] md:ml-auto">
+                        <DeveloperGame />
                     </div>
 
                 </div>
